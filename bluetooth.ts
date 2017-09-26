@@ -2,9 +2,9 @@ namespace bluetooth {
     /**
      * Starts the Keyboard service over Bluetooth and registers it as the Keyboard transport.
      */
-    //% blockId=bluetooth_start_keyboard
+    //% blockId="bluetooth_start_keyboard"
     //% block="bluetooth start keyboard service"
-    //% parts=bluetooth
+    //% parts="bluetooth"
     export function startKeyboardService() {
         function send(text: string) {
             bluetooth.keyboardSendText(text);
@@ -33,9 +33,9 @@ namespace bluetooth {
     /**
      * Sends a Keyboard key-up/down message (with KeyCodes)
      */
-    //% blockId=bluetooth_keyboard_send_one_key_code
-    //% block="%strip|keyboard send one key with %modifier=ModifierKey| and %keyCode=number"
-    //% parts=bluetooth
+    //% blockId="bluetooth_keyboard_send_one_key_code"
+    //% block="keyboard|send one key with %modifier|and %keyCode"
+    //% parts="bluetooth"
     export function keyboardSendOneKeyCode(modifier: ModifierKey, keyCode: number) {
         return;
     }
@@ -43,9 +43,9 @@ namespace bluetooth {
     /**
      * Gets a Key code for specified character
      */
-    //% blockId=bluetooth_keyboard_get_key_code
-    //% block="%strip|keyboard get keyCode with %character=number"
-    //% parts=bluetooth
+    //% blockId="bluetooth_keyboard_get_key_code"
+    //% block="keyboard|get keyCode with %character"
+    //% parts="bluetooth"
     export function keyboardGetKeyCode(character: number): number {
         return;
     }
@@ -53,9 +53,9 @@ namespace bluetooth {
     /**
      * Sends a Keyboard message
      */
-    //% blockId=bluetooth_keyboard_send_text
-    //% block="%strip|keyboard send %text=string"
-    //% parts=bluetooth
+    //% blockId="bluetooth_keyboard_send_text"
+    //% block="keyboard|send %text"
+    //% parts="bluetooth"
     export function keyboardSendText(text: string) {
         return;
     }
