@@ -36,6 +36,8 @@ namespace bluetooth {
     //% blockId="bluetooth_keyboard_send_one_key_code"
     //% block="keyboard|send one key with %modifier|and %keyCode"
     //% parts="bluetooth"
+    //% shim=bluetooth::keyboardSendOneKeyCode
+    //% advanced=true
     export function keyboardSendOneKeyCode(modifier: ModifierKey, keyCode: number) {
         return;
     }
@@ -46,6 +48,8 @@ namespace bluetooth {
     //% blockId="bluetooth_keyboard_get_key_code"
     //% block="keyboard|get keyCode with %character"
     //% parts="bluetooth"
+    //% shim=bluetooth::keyboardGetKeyCode
+    //% advanced=true
     export function keyboardGetKeyCode(character: number): number {
         return;
     }
@@ -56,6 +60,8 @@ namespace bluetooth {
     //% blockId="bluetooth_keyboard_send_text"
     //% block="keyboard|send %text"
     //% parts="bluetooth"
+    //% shim=bluetooth::keyboardSendText
+    //% advanced=true
     export function keyboardSendText(text: string) {
         return;
     }

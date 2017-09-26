@@ -150,8 +150,9 @@ class BluetoothKeyboardService
 
     void sendCallback();
 
-    // not using
     void startAdvertise();
+
+    void startService();
 };
 
 #endif /* __BLEKEYBOARD_H__ */

@@ -64,6 +64,12 @@ static const uint8_t emptyInputReportData[] = {0, 0, 0, 0, 0, 0, 0, 0};
  */
 BluetoothKeyboardService::BluetoothKeyboardService(BLEDevice *dev) : ble(*dev)
 {
+    startService();
+    startAdvertise();
+}
+
+void BluetoothKeyboardService::startService()
+{
     memset(inputReportData, 0, sizeof(inputReportData));
     connected = false;
     protocolMode = REPORT_PROTOCOL;
@@ -113,7 +119,6 @@ BluetoothKeyboardService::BluetoothKeyboardService(BLEDevice *dev) : ble(*dev)
     ble.gattServer().onDataSent(this, &BluetoothKeyboardService::onDataSent);
 }
 
-// not using
 void BluetoothKeyboardService::startAdvertise()
 {
     ble.gap().stopAdvertising();
@@ -121,6 +126,10 @@ void BluetoothKeyboardService::startAdvertise()
 
     ble.gap().accumulateAdvertisingPayload(GapAdvertisingData::BREDR_NOT_SUPPORTED |
                                            GapAdvertisingData::LE_GENERAL_DISCOVERABLE);
+
+    ManagedString BLEName("BBC micro:bit");
+    ble.gap().accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LOCAL_NAME,
+                                           (uint8_t *)BLEName.toCharArray(), BLEName.length());
 
     ble.gap().accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LIST_16BIT_SERVICE_IDS,
                                            (uint8_t *)uuid16_list, sizeof(uuid16_list));
@@ -138,6 +147,8 @@ void BluetoothKeyboardService::startAdvertise()
 
     ble.gap().setAdvertisingType(GapAdvertisingParams::ADV_CONNECTABLE_UNDIRECTED);
     ble.gap().setAdvertisingInterval(50);
+    Gap::AdvertisingPolicyMode_t policyMode = ble.gap().getAdvertisingPolicyMode();
+    ble.gap().setAdvertisingPolicyMode(Gap::ADV_POLICY_IGNORE_WHITELIST);
     ble.gap().startAdvertising();
 }
 
@@ -168,6 +179,7 @@ void BluetoothKeyboardService::onDataSent(unsigned count)
 
 void BluetoothKeyboardService::onConnection(const Gap::ConnectionCallbackParams_t *params)
 {
+    ble.gap().stopAdvertising();
     connected = true;
     keyBuffer = ManagedString::EmptyString;
     previousModifier = MODIFIER_KEY_NONE;
@@ -178,6 +190,7 @@ void BluetoothKeyboardService::onDisconnection(const Gap::DisconnectionCallbackP
 {
     connected = false;
     stopReportTicker();
+    startAdvertise();
 }
 
 /**
