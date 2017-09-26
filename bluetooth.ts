@@ -34,7 +34,7 @@ namespace bluetooth {
      * Sends a Keyboard key-up/down message (with KeyCodes)
      */
     //% blockId=bluetooth_keyboard_send_one_key_code
-    //% block="%strip|keyboard send one keyCode %modifier=ModifierKey %keyCode=number"
+    //% block="%strip|keyboard send one key with %modifier=ModifierKey| and %keyCode=number"
     //% parts=bluetooth
     export function keyboardSendOneKeyCode(modifier: ModifierKey, keyCode: number) {
         return;
@@ -44,7 +44,7 @@ namespace bluetooth {
      * Gets a Key code for specified character
      */
     //% blockId=bluetooth_keyboard_get_key_code
-    //% block="%strip|keyboard get keyCode %character=number"
+    //% block="%strip|keyboard get keyCode with %character=number"
     //% parts=bluetooth
     export function keyboardGetKeyCode(character: number): number {
         return;
@@ -54,7 +54,7 @@ namespace bluetooth {
      * Sends a Keyboard message
      */
     //% blockId=bluetooth_keyboard_send_text
-    //% block="%strip|keyboard send text %text=string"
+    //% block="%strip|keyboard send %text=string"
     //% parts=bluetooth
     export function keyboardSendText(text: string) {
         return;
