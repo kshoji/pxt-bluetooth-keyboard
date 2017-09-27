@@ -128,6 +128,10 @@ void BluetoothKeyboardService::startAdvertise()
                                            GapAdvertisingData::LE_GENERAL_DISCOVERABLE);
 
     ManagedString BLEName("BBC micro:bit");
+    ManagedString namePrefix(" [");
+    ManagedString namePostfix("]");
+    BLEName = BLEName + namePrefix + uBit.getName() + namePostfix;
+
     ble.gap().accumulateAdvertisingPayload(GapAdvertisingData::COMPLETE_LOCAL_NAME,
                                            (uint8_t *)BLEName.toCharArray(), BLEName.length());
 
@@ -147,7 +151,6 @@ void BluetoothKeyboardService::startAdvertise()
 
     ble.gap().setAdvertisingType(GapAdvertisingParams::ADV_CONNECTABLE_UNDIRECTED);
     ble.gap().setAdvertisingInterval(50);
-    Gap::AdvertisingPolicyMode_t policyMode = ble.gap().getAdvertisingPolicyMode();
     ble.gap().setAdvertisingPolicyMode(Gap::ADV_POLICY_IGNORE_WHITELIST);
     ble.gap().startAdvertising();
 }
