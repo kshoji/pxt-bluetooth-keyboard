@@ -9,48 +9,50 @@ namespace bluetooth {
         function send(text: string) {
             bluetooth.keyboardSendText(text);
         }
-        bluetooth.keyboardSendKeyDown(ModifierKey.MODIFIER_KEY_NONE, pins.createBuffer(0));
+        bluetooth.keyboardSendOneKeyCode([], KeyCode.KEY_NONE);
     }
-
+    
     /**
-     * Sends a Keyboard key-down message
+     * Gets the modifier key
      */
-    //% shim=bluetooth::keyboardSendKeyDown
+    //% weight=2 blockGap=8
+    //% blockId="modifier" block="%modifier"
     //% advanced=true
-    export function keyboardSendKeyDown(modifier: ModifierKey, data: Buffer) {
-        return;
+    export function modifier(modifier: Modifier): Modifier {
+        return modifier;
     }
 
     /**
-     * Sends a Keyboard key-up message
+     * Gets the keyCode
      */
-    //% shim=bluetooth::keyboardSendKeyUp
+    //% weight=2 blockGap=8
+    //% blockId="keyCode" block="%keyCode"
     //% advanced=true
-    export function keyboardSendKeyUp() {
-        return;
+    export function keyCode(keyCode: KeyCode): KeyCode {
+        return keyCode;
     }
 
     /**
-     * Sends a Keyboard key-up/down message (with KeyCodes)
+     * Sends a Keyboard key-up/down message (with modifiers and keyCode)
      */
     //% blockId="bluetooth_keyboard_send_one_key_code"
-    //% block="keyboard|send one key with %modifier|and %keyCode"
+    //% block="keyboard|send one key with %modifiers|and keyCode %keyCode"
     //% parts="bluetooth"
-    //% shim=bluetooth::keyboardSendOneKeyCode
-    //% advanced=true
-    export function keyboardSendOneKeyCode(modifier: ModifierKey, keyCode: number) {
+    export function keyboardSendOneKeyCode(modifiers: Modifier[], keyCode: KeyCode) {
+        let modifier = Modifier.MODIFIER_NONE;
+        for (let i = 0, length = modifiers.length; i < length; i++) {
+            modifier |= modifiers[i];
+        }
+        keyboardSendOneKeyCodeInternal(modifier, keyCode);
         return;
     }
 
     /**
-     * Gets a Key code for specified character
+     * Used internally by keyboardSendOneKeyCode()
      */
-    //% blockId="bluetooth_keyboard_get_key_code"
-    //% block="keyboard|get keyCode with %character"
-    //% parts="bluetooth"
-    //% shim=bluetooth::keyboardGetKeyCode
+    //% shim=bluetooth::keyboardSendOneKeyCode
     //% advanced=true
-    export function keyboardGetKeyCode(character: number): number {
+    function keyboardSendOneKeyCodeInternal(modifier: Modifier, keyCode: KeyCode) {
         return;
     }
 

@@ -185,7 +185,7 @@ void BluetoothKeyboardService::onConnection(const Gap::ConnectionCallbackParams_
     ble.gap().stopAdvertising();
     connected = true;
     keyBuffer = ManagedString::EmptyString;
-    previousModifier = MODIFIER_KEY_NONE;
+    previousModifier = MODIFIER_NONE;
     previousKeyCode = 0;
 }
 
@@ -201,7 +201,7 @@ void BluetoothKeyboardService::onDisconnection(const Gap::DisconnectionCallbackP
  * @param character ASCII character code
  * @return modifier key combination
  */
-ModifierKey BluetoothKeyboardService::getModifier(uint8_t character)
+Modifier BluetoothKeyboardService::getModifier(uint8_t character)
 {
     switch (character)
     {
@@ -252,9 +252,9 @@ ModifierKey BluetoothKeyboardService::getModifier(uint8_t character)
     case '<':
     case '>':
     case '?':
-        return MODIFIER_KEY_SHIFT;
+        return MODIFIER_LEFT_SHIFT;
     default:
-        return MODIFIER_KEY_NONE;
+        return MODIFIER_NONE;
     }
 }
 
@@ -426,7 +426,7 @@ uint8_t BluetoothKeyboardService::getKeyCode(uint8_t character)
  * @param modifier modifier key combination
  * @param keyCode key code of US Keyboard
  */
-void BluetoothKeyboardService::sendKeyDownMessage(ModifierKey modifier, uint8_t keyCode)
+void BluetoothKeyboardService::sendKeyDownMessage(Modifier modifier, uint8_t keyCode)
 {
     if (connected)
     {
@@ -463,12 +463,12 @@ void BluetoothKeyboardService::sendCallback()
         if (length > 0)
         {
             uint8_t charAt = keyBuffer.charAt(0);
-            ModifierKey modifier = getModifier(charAt);
+            Modifier modifier = getModifier(charAt);
             uint8_t keyCode = getKeyCode(charAt);
             if (previousModifier == modifier && previousKeyCode == keyCode)
             {
                 sendKeyUpMessage();
-                previousModifier = MODIFIER_KEY_NONE;
+                previousModifier = MODIFIER_NONE;
                 previousKeyCode = 0;
                 return;
             }
@@ -511,7 +511,7 @@ void BluetoothKeyboardService::sendString(ManagedString text)
 /**
  * Send a BLE Keyboard key-up/down message
  */
-void BluetoothKeyboardService::sendKeyCode(ModifierKey modifier, uint8_t keyCode)
+void BluetoothKeyboardService::sendKeyCode(Modifier modifier, uint8_t keyCode)
 {
     if (connected)
     {

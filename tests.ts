@@ -21,5 +21,5 @@ input.onButtonPressed(Button.B, () => {
     led.toggle(1, 1)
 
     // ctrl-alt-del
-    bluetooth.keyboardSendOneKeyCode(ModifierKey.MODIFIER_KEY_CTRL | ModifierKey.MODIFIER_KEY_ALT, KeyCodes.KEY_DEL)
+    bluetooth.keyboardSendOneKeyCode([ Modifier.MODIFIER_LEFT_CTRL, Modifier.MODIFIER_LEFT_ALT ], KeyCode.KEY_DELETE)
 })

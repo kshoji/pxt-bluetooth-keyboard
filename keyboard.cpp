@@ -17,27 +17,7 @@ BluetoothKeyboardService *getKeyboard()
 }
 
 //%
-void keyboardSendKeyDown(ModifierKey modifier, Buffer data)
-{
-    BluetoothKeyboardService *pKeyboard = getKeyboard();
-    ManagedBuffer buf(data);
-    switch (buf.length())
-    {
-    case 1:
-        pKeyboard->sendKeyDownMessage(modifier, buf[0]);
-        break;
-    }
-}
-
-//%
-void keyboardSendKeyUp()
-{
-    BluetoothKeyboardService *pKeyboard = getKeyboard();
-    pKeyboard->sendKeyUpMessage();
-}
-
-//%
-void keyboardSendOneKeyCode(ModifierKey modifier, uint8_t keyCode)
+void keyboardSendOneKeyCode(Modifier modifier, uint8_t keyCode)
 {
     BluetoothKeyboardService *pKeyboard = getKeyboard();
     pKeyboard->sendKeyCode(modifier, keyCode);
